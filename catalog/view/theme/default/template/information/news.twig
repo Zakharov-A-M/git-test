@@ -1,0 +1,93 @@
+{{header}}
+<div class="container">
+	<ul class="breadcrumb {{'product/category' in menu_schema ? 'col-md-offset-3 col-lg-offset-3 col-xxl-offset-4'}}">
+        {% for key, breadcrumb in breadcrumbs %}
+            {% if key+1 < breadcrumbs|length %}
+                {% if key == 0 %}
+					<li itemscope itemtype="https://data-vocabulary.org/Breadcrumb"><a href="{{breadcrumb.href}}" itemprop="url">{{breadcrumb.text}}<span style="display:none" itemprop="title">{{shop_name}}</span></a></li>
+                {% else %}
+					<li itemscope itemtype="https://data-vocabulary.org/Breadcrumb"><a href="{{breadcrumb.href}}" itemprop="url"><span itemprop="title">{{breadcrumb.text}}</span></a></li>
+                {% endif %}
+            {% else %}
+				<li>{{breadcrumb.text}}</li>
+            {% endif %}
+        {% endfor %}
+	</ul>
+	<div class="row">{{column_left}}
+        {% if column_left and column_right %}
+            {% set class = 'col-sm-4 col-md-4 col-lg-6 col-xxl-12' %}
+        {% elseif column_left or column_right %}
+            {% if 'product/category' in menu_schema and column_right %}
+                {% set class = 'col-sm-8 col-md-9 col-lg-6 col-xxl-12 col-md-offset-3 col-lg-offset-3 col-xxl-offset-4' %}
+            {% else  %}
+                {% set class = 'col-sm-8 col-md-9 col-lg-9 col-xxl-16' %}
+            {% endif %}
+        {% else  %}
+            {% if 'product/category' in menu_schema %}
+                {% set class = 'col-sm-12 col-md-9 col-lg-9 col-xxl-16 col-md-offset-3 col-lg-offset-3 col-xxl-offset-4' %}
+            {% else  %}
+                {% set class = 'col-sm-12' %}
+            {% endif %}
+        {% endif %}
+		<div id="content" class="{{ class }}">{{ content_top }}
+			<div class="row">
+                {% if thumb %}
+				<div class="col-sm-4">
+					<div class="thumbnail">
+						<a href="{{ popup }}" title="{{ heading_title }}"><img src="{{ thumb }}" title="{{ heading_title }}" alt="{{ heading_title }}"/></a>
+					</div>
+				</div>
+                {% endif %}
+				<div class="{% if thumb %} col-sm-8 {% else %} col-sm-12 {% endif %}">
+					<h1>{{ heading_title }}</h1>
+					<div class="tab-content">
+						<div class="description">
+							{{ description }}
+						</div>
+						<div class="col-sm-4"><i class="fa fa-clock-o"></i>{{ posted }}</div>
+						<div class="col-sm-4"><i class="fa fa-eye"></i>{{ viewed }}</div>
+                        {% if news_share %}
+						<div class="col-sm-4">
+							<div class="addthis">
+								<!-- AddThis Button BEGIN -->
+								<div class="addthis_toolbox addthis_default_style ">
+									<a class="addthis_button_email"></a>
+									<a class="addthis_button_print"></a>
+									<a class="addthis_button_preferred_1"></a>
+									<a class="addthis_button_preferred_2"></a>
+									<a class="addthis_button_preferred_3"></a>
+									<a class="addthis_button_preferred_4"></a>
+									<a class="addthis_button_compact"></a>
+									<a class="addthis_counter addthis_bubble_style"></a>
+								</div>
+								<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+							</div>
+						</div>
+                        {% endif %}
+					</div>
+				</div>
+				<div class="col-sm-12">
+					
+					<div class="buttons">
+						<div class="pull-left">
+							<a class="btn btn-primary" href="{{ news_list }}">{{ button_news }}</a>
+						</div>
+						<div class="pull-right">
+							<a class="btn btn-primary" href="{{ continue }}">{{ button_continue }}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		{{ content_bottom }}</div>
+	{{ column_right }}</div>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('.thumbnail').magnificPopup({
+				type: 'image',
+				delegate: 'a',
+			});
+		});
+	</script>
+	</div>
+</div>
+{{ footer }}

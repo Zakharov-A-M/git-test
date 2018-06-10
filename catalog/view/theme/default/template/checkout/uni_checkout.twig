@@ -1,0 +1,470 @@
+{{header}}
+<div id="unicheckout" class="checkout_form container">        
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="breadcrumbs">
+				<ul class="breadcrumb">
+					{% for key, breadcrumb in breadcrumbs %}
+						{% if key+1 < breadcrumbs|length %}
+							<li><a href="{{breadcrumb.href}}">{{breadcrumb.text}}</a></li>
+						{% else %}
+							<li>{{breadcrumb.text}}</li>
+						{% endif %}
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="error"></div>
+	<h1 class="heading"><span>{{text_checkout}}</span></h1>
+	<div class="row">
+		<div class="col-xs-12">
+			<div id="unicart">
+				{{cart}}
+			</div>
+		</div>
+	</div>
+	{% if not is_logged %}
+		<div class="row">
+			<div class="col-md-12">
+			    <div class="well">{{text_register2}} &nbsp;<a href="#" onclick="login(); return false;">{{text_login2}}</a></div>
+		    </div>
+		</div>
+	{% endif %}
+	<div id="checkout_data">
+		<form id="user" class="row">
+			<div class="col-md-6">
+				<div class="user_data row">
+					<div class="col-md-12">
+						<div class="heading"><span>Контактные данные</span></div>
+					</div>
+					<div class="form-group firstname col-xs-6">
+						<input type="text" name="firstname" value="" placeholder="Ваше имя" class="form-control">
+					</div>
+					<div class="form-group lastname  col-xs-6">
+						<input type="text" name="lastname" value="" placeholder="Ваша фамилия" class="form-control">
+					</div>
+					<div class="col-xs-12"></div>
+					<div class="form-group email  col-xs-6">
+						<input type="email" name="email" value="" placeholder="Ваш e-mail" class="form-control">
+					</div>
+					<div class="form-group telephone  col-xs-6">
+						<input type="tel" name="telephone" value="" placeholder="Контактный телефон" class="form-control">
+					</div>
+					<input type="hidden" name="fax" value="">
+					<div class="custom-field col-xs-12">
+
+					</div>
+				</div>
+				<div class="row hide">
+
+					<div class="form-group col-md-12">
+						<label class="input show-register-form">
+							<input type="checkbox" name="add-new-customer" value="1" id="register_user"><span></span><span>Зарегистрироваться</span>
+						</label>
+					</div>
+					<div class="register-form col-xs-12" style="display:none">
+						<div>
+							<label class="control-label">Группа покупателей:</label> &nbsp;&nbsp;&nbsp;
+							<div class="radio">
+								<label class="input"><input type="radio" name="customer_group_id" value="1" id="1" checked="checked"><span></span><span>Default</span></label>
+							</div>
+							<div class="radio">
+								<label class="input"><input type="radio" name="customer_group_id" value="2" id="2"><span></span><span>Опт</span></label>
+							</div>
+							<div style="height:12px"></div>
+						</div>
+						<div class="form-group required">
+							<input type="password" name="password" value="" placeholder="Придумайте пароль" id="input-payment-password" class="form-control">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="payment-address col-xs-12">
+						<div>
+							<div class="heading"><span>Адрес доставки</span></div>
+							<div class="row">
+								<div id="payment-address-new">
+									<input type="hidden" name="company" value="">
+									<input type="hidden" name="company_id" value="">
+									<input type="hidden" name="tax_id" value="">
+									<div class="form-group country  col-xs-6">
+										<select name="country_id" id="input-payment-country" class="form-control" onchange="zone();">
+											<option value="">Выберите страну</option>
+											<option value="1">Afghanistan</option>
+											<option value="2">Albania</option>
+											<option value="3">Algeria</option>
+											<option value="4">American Samoa</option>
+											<option value="5">Andorra</option>
+											<option value="6">Angola</option>
+											<option value="7">Anguilla</option>
+										</select>
+									</div>
+									<div class="form-group zone  col-xs-6">
+										<select name="zone_id" id="input-payment-zone" class="form-control" onchange="uniCheckoutUpdate();"><option value=""> --- Выберите --- </option><option value="2721">Abakan</option><option value="2722">Aginskoye</option><option value="2723">Anadyr</option><option value="2724">Arkahangelsk</option><option value="2725">Astrakhan</option><option value="2726">Barnaul</option><option value="2727">Belgorod</option><option value="2728">Birobidzhan</option><option value="2729">Blagoveshchensk</option><option value="2730">Bryansk</option><option value="2731">Cheboksary</option><option value="2732">Chelyabinsk</option><option value="2733">Cherkessk</option><option value="2734">Chita</option><option value="2735">Dudinka</option><option value="2736">Elista</option><option value="2738">Gorno-Altaysk</option><option value="2739">Groznyy</option><option value="2740">Irkutsk</option><option value="2741">Ivanovo</option><option value="2742">Izhevsk</option><option value="2743">Kalinigrad</option><option value="2744">Kaluga</option><option value="2745">Kasnodar</option><option value="2746">Kazan</option><option value="2747">Kemerovo</option><option value="2748">Khabarovsk</option><option value="2749">Khanty-Mansiysk</option><option value="2750">Kostroma</option><option value="2751">Krasnodar</option><option value="2752">Krasnoyarsk</option><option value="2753">Kudymkar</option><option value="2754">Kurgan</option><option value="2755">Kursk</option><option value="2756">Kyzyl</option><option value="2757">Lipetsk</option><option value="2758">Magadan</option><option value="2759">Makhachkala</option><option value="2760">Maykop</option><option value="2761">Moscow</option><option value="2762">Murmansk</option><option value="2763">Nalchik</option><option value="2764">Naryan Mar</option><option value="2765">Nazran</option><option value="2766">Nizhniy Novgorod</option><option value="2767">Novgorod</option><option value="2768">Novosibirsk</option><option value="2769">Omsk</option><option value="2770">Orel</option><option value="2771">Orenburg</option><option value="2772">Palana</option><option value="2773">Penza</option><option value="2774">Perm</option><option value="2775">Petropavlovsk-Kamchatskiy</option><option value="2776">Petrozavodsk</option><option value="2777">Pskov</option><option value="2778">Rostov-na-Donu</option><option value="2779">Ryazan</option><option value="2780">Salekhard</option><option value="2781">Samara</option><option value="2782">Saransk</option><option value="2783">Saratov</option><option value="2784">Smolensk</option><option value="2785" selected="selected">St. Petersburg</option><option value="2786">Stavropol</option><option value="2787">Syktyvkar</option><option value="2788">Tambov</option><option value="2789">Tomsk</option><option value="2790">Tula</option><option value="2791">Tura</option><option value="2792">Tver</option><option value="2793">Tyumen</option><option value="2794">Ufa</option><option value="2795">Ul'yanovsk</option><option value="2796">Ulan-Ude</option><option value="2797">Ust'-Ordynskiy</option><option value="2798">Vladikavkaz</option><option value="2799">Vladimir</option><option value="2800">Vladivostok</option><option value="2801">Volgograd</option><option value="2802">Vologda</option><option value="2803">Voronezh</option><option value="2804">Vyatka</option><option value="2805">Yakutsk</option><option value="2806">Yaroslavl</option><option value="2807">Yekaterinburg</option><option value="2808">Yoshkar-Ola</option></select>
+									</div>
+									<div class="col-xs-12"></div>
+									<div class="form-group city  col-xs-6">
+										<input type="text" name="city" value="" placeholder="Город" class="form-control">
+									</div>
+									<div class="form-group postcode  col-xs-6">
+										<input type="text" name="postcode" value="" placeholder="Индекс" class="form-control">
+									</div>
+									<div class="address form-group  col-xs-12">
+										<input type="text" name="address_1" value="" placeholder="Ваш адрес" class="form-control">
+									</div>
+									<div class="form-group hide col-xs-12">
+										<input type="text" name="address_2" value="" placeholder="Ваш адрес, продолжнение" class="form-control">
+									</div>
+								</div>
+								<div class="custom-field col-xs-12">
+
+								</div>
+								<div class="col-xs-12 visible-xs visible-sm" style="height:20px"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="shipping_wrap">
+					<div class="heading"><span>Cпособы доставки</span></div>
+					<div class="shipping-method">
+						<div class="radio">
+							<label class="input">
+								<input type="radio" name="shipping_method" value="flat.flat" id="flat.flat" checked="checked">
+								<span></span>
+								<span class="methods"><span class="method">Доставка с фиксированной стоимостью:</span><span class="method">350.00€</span></span>
+							</label>
+						</div>
+						<div class="radio">
+							<label class="input">
+								<input type="radio" name="shipping_method" value="item.item" id="item.item">
+								<span></span>
+								<span class="methods"><span class="method">Стоимость доставки за единицу товара:</span><span class="method">700.00€</span></span>
+							</label>
+						</div>
+						<div class="radio">
+							<label class="input">
+								<input type="radio" name="shipping_method" value="pickup.pickup" id="pickup.pickup">
+								<span></span>
+								<span class="methods"><span class="method">Самовывоз из магазина:</span><span class="method">0.00€</span></span>
+							</label>
+						</div>
+						<div class="radio">
+							<label class="input">
+								<input type="radio" name="shipping_method" value="weight.weight_4" id="weight.weight_4">
+								<span></span>
+								<span class="methods"><span class="method">Россия  (Вес: 10.00 Кг):</span><span class="method">7 000.00€</span></span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="payment_wrap">
+					<div class="heading"><span>Cпособы оплаты</span></div>
+					<div class="payment-method">
+						<div class="radio">
+							<label class="input">
+								<input type="radio" name="payment_method" value="cheque" title="Cheque / Money Order" id="cheque" checked="checked">
+								<span></span>Cheque / Money Order
+							</label>
+						</div>
+						<div class="radio">
+							<label class="input">
+								<input type="radio" name="payment_method" value="bank_transfer" title="Банковский перевод" id="bank_transfer">
+								<span></span>Банковский перевод
+							</label>
+						</div>
+						<div class="radio">
+							<label class="input">
+								<input type="radio" name="payment_method" value="cod" title="Оплата при доставке" id="cod">
+								<span></span>Оплата при доставке
+							</label>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="col-xs-12 visible-md visible-lg" style="height:20px"></div>
+			<div class="col-xs-12">
+				<div class="heading"><span>Комментарий</span></div>
+				<p><textarea name="comment" rows="3" class="form-control"></textarea></p>
+			</div>
+		</form>
+		<div id="confirm" class="row">
+			<div class="total_checkout col-xs-12 text-right">
+				<h3 style="margin:10px 0 20px;"><span style="padding:0;color:#777;">{{text_total_checkout}}<span style="padding:0;color:#D9534F;"><span/><span/></h3>
+			</div>
+			{% if text_confirm %}
+				<div class="buttons col-xs-12 text-right">
+					<label class="input text-right"><input type="checkbox" name="confirm" value="1" {{confirm ? 'checked="checked"'}} id="agree" /><span></span>{{text_confirm}}</label>
+				</div>
+			{% endif %}
+			<div class="buttons col-xs-12 text-right">
+				<button data-loading-text="{{text_loading}}" id="confirm_checkout" class="btn btn-lg btn-primary">{{button_confirm_checkout}}</button>
+			</div>
+			<div class="col-xs-12 payment"></div>
+		</div>
+		<div class="related_after"></div>
+	</div>			
+    {{content_bottom}}
+</div>
+<script src="catalog/view/theme/unishop2/js/jquery.maskedinput.min.js"></script>
+<script>
+$(document).ready(function(){
+	$('.total_checkout h3 span span').html($('.total_table td:last').html());
+});
+$('.show-register-form input').on('change', function() {
+	$('.register-form').toggle();
+});
+
+$('body').on('change', 'input[name=\'shipping_method\'], input[name=\'payment_method\'], .payment-address input[type=\'text\'], .payment-address input[type=\'radio\'], .payment-address input[type=\'checkbox\'], .payment-address textarea, select[name=\'address_id\']', function() {
+	uniCheckoutUpdate();
+});
+
+$('body').on('click', '.add_to_cart', function() {
+	option = $(this).parent().parent().find('.option').children().size();
+	option_checked = $(this).parent().parent().find('.option input:checked, .option select').size();
+	if(!option || option_checked) {
+		uniCheckoutUpdate();
+	}
+});
+
+$('body').on('click', '#confirm_checkout', function() {
+	var data = $('.checkout_form input[type=\'text\'], .checkout_form input[type=\'tel\'], .checkout_form input[type=\'email\'], .checkout_form input[type=\'date\'], .checkout_form input[type=\'datetime-local\'], .checkout_form input[type=\'time\'], .checkout_form input[type=\'password\'], .checkout_form input[type=\'hidden\'], .checkout_form input[type=\'checkbox\']:checked, .checkout_form input[type=\'radio\']:checked, .checkout_form textarea, .checkout_form select').serialize();
+	
+	var form = '#unicheckout';
+	
+    $.ajax({
+        url: 'index.php?route=checkout/uni_checkout/validate',
+        type: 'post',
+        data: data,
+        dataType: 'json',
+        beforeSend: function() {
+			$('#confirm_checkout').button('loading');
+		},  
+        complete: function() {
+            $('#confirm_checkout').button('reset');
+        },          
+        success: function(json) {
+			$('#unicheckout .text-danger').remove();
+                        
+            if (json['error']) {
+				for (i in json['error']) {
+					form_error(form, i, json['error'][i]);
+				}
+				
+				if($('#unicart .alert').length) {
+					scroll_to('#unicart .alert');
+				} else {
+					scroll_to('.text-danger');
+				}
+            }
+			
+			if (json['success']) {
+				$('.payment').html(json['success']);
+					if (!$('.payment h2, .payment p, .payment input[type=\'radio\'], .payment input[type=\'checkbox\'], .payment select').length) {
+						$('.payment').css('display', 'none');
+						$('.payment #button-confirm, .payment input[type=\'button\'], .payment input[type=\'submit\'], .payment button, .payment a, .payment .btn-primary').click();
+						if($('.payment a').length) {
+							$('.payment a')[0].click();
+						}
+					}
+			}
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    }); 
+});  
+
+$('body').on('focus', '#unicheckout input[name=\'telephone\']', function(){
+	$(this).mask('{{checkout_phone_mask}}');
+});
+
+$('body').on('click', '#button-coupon', function() {
+	
+	var form = '#unicheckout';
+
+	$.ajax({
+		url: 'index.php?route=extension/total/coupon/coupon',
+		type: 'post',
+		data: 'coupon=' + encodeURIComponent($('input[name=\'coupon\']').val()),
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-coupon').button('loading');
+		},
+		complete: function() {
+			$('#button-coupon').button('reset');
+		},
+		success: function(json) {
+			$('.text-danger').remove();
+
+			if (json['error']) {
+				form_error(form, 'coupon', json['error']);
+			}
+
+			if (json['redirect']) {
+				uniCheckoutUpdate();
+			}
+		}
+	});
+});
+$('body').on('click', '#button-reward', function() {
+
+	var form = '#unicheckout';
+
+	$.ajax({
+		url: 'index.php?route=extension/total/reward/reward',
+		type: 'post',
+		data: 'reward=' + encodeURIComponent($('input[name=\'reward\']').val()),
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-reward').button('loading');
+		},
+		complete: function() {
+			$('#button-reward').button('reset');
+		},
+		success: function(json) {
+			$('.text-danger').remove();
+
+			if (json['error']) {
+				form_error(form, 'reward', json['error']);
+			}
+
+			if (json['redirect']) {
+				uniCheckoutUpdate();
+			}
+		}
+	});
+});
+$('body').on('click', '#button-voucher', function() {
+
+	var form = '#unicheckout';
+
+	$.ajax({
+		url: 'index.php?route=extension/total/voucher/voucher',
+		type: 'post',
+		data: 'voucher=' + encodeURIComponent($('input[name=\'voucher\']').val()),
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-voucher').button('loading');
+		},
+		complete: function() {
+			$('#button-voucher').button('reset');
+		},
+		success: function(json) {
+			$('.text-danger').remove();
+
+			if (json['error']) {
+				form_error(form, 'voucher', json['error']);
+			}
+
+			if (json['redirect']) {
+				uniCheckoutUpdate();
+			}
+		}
+	});
+});
+
+function uniCartEdit(key, quantity, product_id) {
+	$.ajax({
+		url: 'index.php?route=checkout/cart/edit',
+		type: 'post',
+		data: 'quantity['+key+']='+quantity,
+		dataType: 'html',
+		beforeSend: function() {
+			$('input[name=\'quantity['+key+']\']').val(quantity)
+		},
+		success: function(json) {
+			$('#cart').load('index.php?route=common/cart/info #cart > *');
+			
+			if(typeof(product_id) != 'undefined' && quantity <= 0) {
+				uniReturnBtn(product_id);
+			}
+			
+			uniCheckoutUpdate();
+		}
+	});
+}
+
+function uniVoucherRemove(key) {
+	$.ajax({
+		url: 'index.php?route=checkout/cart/remove',
+		type: 'post',
+		data: 'key='+key,
+		dataType: 'json',
+		success: function(json) {
+			$('#cart').load('index.php?route=common/cart/info #cart > *');
+			uniCheckoutUpdate();
+		},
+	    error: function(xhr, ajaxOptions, thrownError) {
+	         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+	    }
+	});
+}
+
+function uniCheckoutUpdate() {
+
+	var data = $('.payment-address input, .payment-address textarea, .payment-address select').serialize();
+	
+	$.ajax({
+		url: 'index.php?route=checkout/uni_checkout/address&render=1',
+		type: 'post',
+		data: data,
+		dataType: 'html',
+		beforeSend: function() {
+			$('html body').append('<div class="full-width-loading"></div>');
+		},
+		success: function(html) {
+			$('.payment-address').html(html);
+			uniShippingUpdate();
+		}
+	});
+}
+
+function uniShippingUpdate() {
+
+	var data = $('.shipping-method input[type=\'radio\']:checked').serialize();
+
+	$.ajax({
+		url: 'index.php?route=checkout/uni_checkout/shipping_method&render=1',
+		type: 'post',
+		data: data,
+		dataType: 'html',
+		success: function(html) {
+			$('.shipping_wrap').html(html);
+			uniPaymentUpdate();
+		}
+	});
+}
+
+function uniPaymentUpdate() {
+
+	var data = $('.payment-method input[type=\'radio\']:checked').serialize();
+
+	$.ajax({
+		url: 'index.php?route=checkout/uni_checkout/payment_method&render=1',
+		type: 'post',
+		data: data,
+		dataType: 'html',
+		success: function(html) {
+			$('.payment_wrap').html(html);
+			uniCartUpdate();
+		}
+	});
+}
+
+function uniCartUpdate() {
+	$.ajax({
+		url: 'index.php?route=checkout/uni_checkout/cart&render=1',
+		dataType: 'html',
+		success: function(html) {
+			$('#unicart').html(html);
+			$('.total_checkout h3 span span').html($('.total_table td:last').html());
+			$('.full-width-loading').remove();
+		}
+	});
+}
+</script>
+{{footer}}

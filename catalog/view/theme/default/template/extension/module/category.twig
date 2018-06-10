@@ -1,0 +1,45 @@
+{% if categories %}
+    <div class="heading"><span>Custom menu</span></div>
+    <div class="row">
+        <div id="custom_menu" class="col-xs-12">
+            <ul class="nav navbar-nav">
+                {% for category in categories %}
+                    {% if category.children %}
+                        <li class="has_chidren {% if category.category_id == category_id %} action {% endif %}">
+                            <a href="{{category.href}}">
+                                {% if category.image %}
+                                    <img src="{{category.image}}" alt="{{category.name}}" />
+                                {% else %}
+                                    <span><i class="fa fa-angle-right"></i></span>
+                                {% endif %}
+                                {{ category.name }} <i class="fa fa-angle-down" aria-hidden="true"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <div class="dropdown-inner">
+                                    <ul class="list-unstyled column">
+                                        {% for child in category.children %}
+                                            <li>
+                                                <a href="{{child.href}}"><i class="fa fa-level-up visible-xs visible-sm" aria-hidden="true"></i>{{child.name}}</a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li class="{% if category.category_id == category_id %} action {% endif %}">
+                            <a href="{{category.href}}">
+                                {% if category.image %}
+                                    <img src="{{category.image}}" alt="{{category.name}}" />
+                                {% else %}
+                                    <span><i class="fa fa-angle-right"></i></span>
+                                {% endif %}
+                                {{ category.name }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endif %}

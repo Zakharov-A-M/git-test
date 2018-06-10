@@ -1,0 +1,25 @@
+{{header}}
+<div class="home-page container">
+  <div class="row">{{column_left}}
+      {% if column_left and column_right %}
+          {% set class = 'col-sm-4 col-md-4 col-lg-6' %}
+      {% elseif column_left or column_right %}
+          {% set class = 'col-sm-12 col-md-9 col-lg-9 col-xxl-16' %}
+      {% else %}
+          {% set class = 'col-sm-12' %}
+      {% endif %}
+      {% if 'common/home' in menu_schema and column_left is empty and column_right is empty %}
+          {% set class = 'col-sm-12 col-md-9 col-lg-9 col-xxl-16 col-md-offset-3 col-lg-offset-3 col-xxl-offset-4' %}
+      {% elseif 'common/home' in menu_schema and column_left is empty and column_right %}
+          {% set class = 'col-sm-12 col-md-6 col-lg-6 col-xxl-12 col-md-offset-3 col-lg-offset-3 col-xxl-offset-4' %}
+      {% endif %}
+    <div id="content" class="{{class}}">{{content_top}}</div>
+      {{column_right}}
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+        {{content_bottom}}
+    </div>
+  </div>
+</div>
+{{footer}}

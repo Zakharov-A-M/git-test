@@ -1,0 +1,52 @@
+{{header}}
+<div class="container">
+    <ul class="breadcrumb">
+        {% for key, breadcrumb in breadcrumbs %}
+            {% if key+1 < breadcrumbs|length %}
+                {% if key == 0 %}
+                    <li><a href="{{breadcrumb.href}}" itemprop="url">{{breadcrumb.text}}<span style="display:none" itemprop="title">{{shop_name ? shop_name : 'Home'}}</span></a></li>
+                {% else %}
+                    <li><a href="{{breadcrumb.href}}" itemprop="url"><span itemprop="title">{{breadcrumb.text}}</span></a></li>
+                {% endif %}
+            {% else %}
+                <li>{{breadcrumb.text}}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <div class="row">
+        {{column_left}}
+        {% if column_left and column_right %}
+            {% set class = 'col-sm-4 col-md-4 col-lg-6 col-xxl-12' %}
+        {% elseif column_left or column_right %}
+            {% if 'information/information' in menu_schema and column_left is empty %}
+                {% set class = 'col-sm-8 col-md-9 col-lg-6 col-xxl-12 col-md-offset-3 col-lg-offset-3 col-xxl-offset-4' %}
+            {% else  %}
+                {% set class = 'col-sm-8 col-md-9 col-lg-9 col-xxl-16' %}
+            {% endif %}
+        {% else  %}
+            {% if 'information/information' in menu_schema %}
+                {% set class = 'col-sm-8 col-md-9 col-lg-9 col-xxl-16 col-md-offset-3 col-lg-offset-3 col-xxl-offset-4' %}
+            {% else  %}
+                {% set class = 'col-sm-12' %}
+            {% endif %}
+        {% endif %}
+        <div id="content" class="{{class}}">
+            <h1 class="heading"><span>{{heading_title}}</span></h1>
+            <p style="text-align: justify;"><span style="color: #000000;"><strong>ВНИМАНИЕ: </strong></span></p>
+            <p style="text-align: justify;"><span style="color: #ff0000;"><strong>В связи с проведением технических работ на сайте возможно несоответствие отображаемого количества товара на складе с имеющимися реальными остатками. Приносим извинениния за указанное неудобство и просим учесть данный факт при заказе. Для уточнения реального количества товара, имеющегося на складе, необходимо связаться с нашими менеджерами по тел.&nbsp;<a href="tel:+74957775407">+7(495) 777-54-07</a> или email: <a href="mailto:shop@prolm.ru">shop@prolm.ru</a>. Cумма минимального заказа составляет 1000 рублей.</strong></span></p>
+            <p style="text-align: justify;">Для заказа товара в нашем интернет-магазине необходимо пройти <a href="/siteusers/?action=registration" target="_blank">регистрацию</a>. О способах доставки Вы можете ознакомиться в <a href="/delivery/" target="_blank">соответствующем разделе</a>.</p>
+            <p style="text-align: justify;">Пожалуйста, указывайте достоверные сведения при заполнении обязательных полей, отмеченных символом "<span style="color: #ff0000;">*</span>". Корректность введенных Вами данных упростит оформление и ускорит отправку Ваших заказов. Персональная информация не будет использоваться для любых иных действий, в т.ч. для передачи третьей стороне. На указаный Вами e-mail будет отправлено письмо со ссылкой на подтверждение регистрации. После перехода по данной ссылке Ваш аккаунт будет активирован.</p>
+            <p style="text-align: justify;">Если Вы зарегистрировались и активировали свой аккаунт - войдите на сайт, нажав ссылку "Вход" вверху страницы и введя e-mail и пароль, указанные при регистрации. Вы попадете в свой личный кабинет, содержащий Вашу персональную информацию и сведения о заказах.</p>
+            <p>Для заказа:</p>
+            <ol>
+                <li style="text-align: justify;">Выберите необходимый товар в <a href="/">каталоге магазина</a> либо используя соответствующий запрос в поисковой строке сайта. <span style="color: #999999;"><em>Для осуществленя поиска введите не менее 3 символов (букв и/или цифр), содержащихся в названии нужного Вам товара. Поисковая система в режиме реального времени будет отображать количество найденных товаров, соответствующих Вашему запросу, а также показвать их названия. Нажав на клавишу "Enter" на клавиатуре или кликнув на иконку поиска в поисковой строке Вам будет представлен весь список товаров, содержащих в названии введенные символы.</em></span></li>
+                <li style="text-align: justify;">Кликнув на конкретный товар Вы сможете ознакомиться с его кратким описанием, техническими характеристиками, ценой и имеющимся на складе количеством.</li>
+                <li style="text-align: justify;">Выберите требуемое количество (длину) товара и кликните кнопку "В корзину". При наличии у товара аналогов под кнопкой "В корзину" расположена кнопка "Аналоги", кликнув на которую Вам будут предложены продукты с одинаковыми либо близкими характеристиками.</li>
+                <li style="text-align: justify;">Поместив в корзину необходимые товары, Вы можете изменить их количество (длину) либо удалить их из корзины.</li>
+                <li style="text-align: justify;">В комментариях к заказу сообщите каким перевозчиком Вам будет удобна доставка приобретенного заказа.</li>
+                <li style="text-align: justify;">Оплатите товар либо запросите счет на оплату. О способах оплаты Вы можете ознакомиться в <a href="/how-pay/" target="_blank">этом разделе</a></li>
+            </ol>
+        </div>
+    </div>
+</div>
+{{footer}}
